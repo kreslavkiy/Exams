@@ -1,16 +1,21 @@
 // Deduplicate values in array
 
-DISTINCT =data=> {
-    A=new Set(); w=0;
-    data.forEach((a) => {
-        if (A.has(a)) {
-        data.splice(w, 1)
-        } else {
-        A.add(a)
-        };
-        w++;
-    });
-  return data;}
+// Fixes:
+// - not changing incoming parameters
+// - simplified code by using array instead of Set
+// - used for...of instead of for (...)
 
-const result = DISTINCT([1, 2, 1, 3, 1, 4]);
+'use strict';
+
+const distinct = (data) => {
+  const result = [];
+  for (const element of data) {
+    if (!result.includes(element)) {
+      result.push(element);
+    }
+  }
+  return result;
+};
+
+const result = distinct([1, 2, 1, 2, 3, 1, 4, 4]);
 console.log(result);
